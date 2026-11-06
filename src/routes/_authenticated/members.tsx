@@ -1,9 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
 import { members as seed, type Member } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/members")({
+export const Route = createFileRoute("/_authenticated/members")({
   head: () => ({
     meta: [
       { title: "Members — TUCASA Nyerere Campus" },
@@ -46,7 +47,7 @@ function MembersPage() {
             </select>
             <input className={input} placeholder="Residency (hall/hostel)" value={form.residency} onChange={(e) => setForm({ ...form, residency: e.target.value })} />
             <input className={input} placeholder="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-            <button className="w-full rounded-md bg-primary py-2 text-sm font-semibold text-primary-foreground">Register</button>
+            <Button className="w-full rounded-md bg-primary py-2 text-sm font-semibold text-primary-foreground">Register</Button>
           </form>
         </WhiteCard>
         <WhiteCard className="lg:col-span-2">

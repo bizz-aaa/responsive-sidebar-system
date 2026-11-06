@@ -1,9 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
 import { events, type CampusEvent } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/events")({
+export const Route = createFileRoute("/_authenticated/events")({
   head: () => ({
     meta: [
       { title: "Events — TUCASA Nyerere Campus" },
@@ -28,13 +29,13 @@ function EventsPage() {
       <PageTitle title="Events & Fellowship Planner" subtitle="Upcoming fellowships, choir practices and outreach" />
       <div className="flex flex-wrap gap-2">
         {cats.map((c) => (
-          <button
+          <Button
             key={c}
             onClick={() => setCat(c)}
             className={`rounded-full border border-glass-border px-3 py-1 text-sm ${cat === c ? "bg-card text-card-foreground" : "bg-glass"}`}
           >
             {c}
-          </button>
+          </Button>
         ))}
       </div>
       <div className="grid gap-4 md:grid-cols-2">
@@ -46,12 +47,12 @@ function EventsPage() {
             <p className="text-xs text-muted-foreground">{e.venue}</p>
             <div className="mt-3 flex items-center justify-between">
               <span className="text-xs text-muted-foreground">{e.registered} registered</span>
-              <button
+              <Button
                 onClick={() => setList(list.map((x) => (x.id === e.id ? { ...x, registered: x.registered + 1 } : x)))}
                 className="rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground"
               >
                 Register
-              </button>
+              </Button>
             </div>
           </WhiteCard>
         ))}

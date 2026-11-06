@@ -3,7 +3,7 @@ import { useState } from "react";
 import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
 import { members } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
       { title: "Admin — TUCASA Nyerere Campus" },
