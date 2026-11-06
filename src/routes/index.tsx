@@ -42,7 +42,7 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-5">
         {stats.map((s) => (
           <WhiteCard key={s.label} className="text-center">
             <s.icon className="mx-auto h-7 w-7" />
