@@ -31,9 +31,9 @@ function FinancePage() {
 
   async function createContribution(e: FormEvent) {
     e.preventDefault(); const amount = Number(form.amount);
-    if (form.title.trim().length < 2 || !(amount > 0)) return toast.error("Enter a title and amount.");
+    if (form.title.trim().length < 2 || !(amount > 0)) return void toast.error("Enter a title and amount.");
     const { error } = await supabase.from("contributions").insert({ title: form.title.trim(), kind: form.kind, amount, due_date: form.due_date || null });
-    if (error) return toast.error("Could not save."); setForm({ title: "", kind: "membership", amount: "", due_date: "" }); refresh();
+    if (error) return void toast.error("Could not save."); setForm({ title: "", kind: "membership", amount: "", due_date: "" }); refresh();
   }
   async function markPaid(cid: string, amount: number) {
     const reference = window.prompt("Payment reference (e.g. M-Pesa transaction code)") ?? "";
@@ -43,7 +43,7 @@ function FinancePage() {
   async function confirm(id: string) { const { error } = await supabase.from("payments").update({ status: "confirmed", confirmed_at: new Date().toISOString() }).eq("id", id); if (error) toast.error("Could not confirm."); else refresh(); }
   async function record(e: FormEvent) {
     e.preventDefault(); const c = contribs.data?.find((x) => x.id === rec.contribution_id);
-    if (!c || !rec.user_id) return toast.error("Choose a contribution and member.");
+    if (!c || !rec.user_id) return void toast.error("Choose a contribution and member.");
     const { error } = await supabase.from("payments").upsert({ contribution_id: c.id, user_id: rec.user_id, amount: c.amount, reference: rec.reference || null, status: "confirmed", confirmed_at: new Date().toISOString() }, { onConflict: "contribution_id,user_id" });
     if (error) toast.error("Could not record."); else { toast.success("Payment recorded."); setRec({ ...rec, user_id: "", reference: "" }); refresh(); }
   }

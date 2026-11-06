@@ -23,7 +23,7 @@ function ReadingsPage() {
   const shown = (q.data ?? []).filter((r) => r.category === tab);
 
   async function upload(e: FormEvent) {
-    e.preventDefault(); if (form.title.trim().length < 2) return toast.error("Enter a title.");
+    e.preventDefault(); if (form.title.trim().length < 2) return void toast.error("Enter a title.");
     setBusy(true);
     try {
       let file_path: string | null = null;
@@ -37,7 +37,7 @@ function ReadingsPage() {
       setForm({ title: "", description: "" }); setFile(null); toast.success("Reading uploaded."); qc.invalidateQueries({ queryKey: ["readings"] });
     } catch { toast.error("Upload failed."); } finally { setBusy(false); }
   }
-  async function open(path: string) { const { data, error } = await supabase.storage.from("readings").createSignedUrl(path, 600); if (error || !data) return toast.error("Could not open file."); window.open(data.signedUrl, "_blank", "noopener"); }
+  async function open(path: string) { const { data, error } = await supabase.storage.from("readings").createSignedUrl(path, 600); if (error || !data) return void toast.error("Could not open file."); window.open(data.signedUrl, "_blank", "noopener"); }
   async function remove(id: string, path: string | null) { if (path) await supabase.storage.from("readings").remove([path]); const { error } = await supabase.from("readings").delete().eq("id", id); if (error) toast.error("Could not delete."); else qc.invalidateQueries({ queryKey: ["readings"] }); }
 
   return (

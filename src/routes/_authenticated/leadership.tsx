@@ -29,12 +29,12 @@ function LeadershipPage() {
 
   async function claim() { const { data, error } = await supabase.rpc("claim_first_admin"); if (error || !data) toast.error("Could not claim."); else { toast.success("You are now an admin."); refresh(); } }
   async function addPosition(body: string) {
-    const p = newPos[body]!; if (p.title.trim().length < 2) return toast.error("Enter a position title.");
+    const p = newPos[body]!; if (p.title.trim().length < 2) return void toast.error("Enter a position title.");
     const { error } = await supabase.from("leadership_positions").insert({ body, title: p.title.trim(), is_admin: p.is_admin });
     if (error) toast.error("Could not add position."); else { setNewPos({ ...newPos, [body]: { ...p, title: "" } }); refresh(); }
   }
   async function addLeader(positionId: string) {
-    const m = members.data?.find((x) => x.id === pick[positionId]); if (!m) return toast.error("Choose a member.");
+    const m = members.data?.find((x) => x.id === pick[positionId]); if (!m) return void toast.error("Choose a member.");
     const { error } = await supabase.from("leaders").insert({ position_id: positionId, user_id: m.id, leader_name: m.full_name, leader_phone: m.phone });
     if (error) toast.error(error.code === "23505" ? "Already holds this position." : "Could not add leader."); else { setPick({ ...pick, [positionId]: "" }); refresh(); }
   }

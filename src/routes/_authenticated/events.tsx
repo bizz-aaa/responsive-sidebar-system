@@ -31,9 +31,9 @@ function EventsPage() {
 
   async function create(e: FormEvent) {
     e.preventDefault();
-    if (form.title.trim().length < 2 || !form.location.trim() || !form.starts_at) return toast.error("Fill in name, location and time.");
+    if (form.title.trim().length < 2 || !form.location.trim() || !form.starts_at) return void toast.error("Fill in name, location and time.");
     const { error } = await supabase.from("events").insert({ title: form.title.trim(), location: form.location.trim(), starts_at: new Date(form.starts_at).toISOString(), contribution_amount: Number(form.amount) || 0 });
-    if (error) return toast.error("Could not create event.");
+    if (error) return void toast.error("Could not create event.");
     setForm({ title: "", location: "", starts_at: "", amount: "" }); toast.success("Event created."); refresh();
   }
   const share = async (id: string) => { const url = `${window.location.origin}/register/${id}`; try { if (navigator.share) await navigator.share({ title: "Register for event", url }); else { await navigator.clipboard.writeText(url); toast.success("Registration link copied."); } } catch { await navigator.clipboard.writeText(url).catch(() => {}); } };
@@ -86,7 +86,7 @@ function EventsPage() {
       <Dialog open={Boolean(registerFor)} onOpenChange={(o) => !o && setRegisterFor(null)}>
         <DialogContent className="border-glass-border bg-ocean-deep text-on-ocean">
           <DialogHeader><DialogTitle>Register for event</DialogTitle></DialogHeader>
-          {registerFor && <EventRegistrationForm eventId={registerFor} userId={user?.id} defaults={{ full_name: profile?.full_name ?? "", phone: profile?.phone ?? "", year_of_study: String(profile?.year_of_study ?? 1) }} onDone={() => { setRegisterFor(null); toast.success("You are registered."); refresh(); }} />}
+          {registerFor && <EventRegistrationForm eventId={registerFor} userId={user?.id ?? null} defaults={{ full_name: profile?.full_name ?? "", phone: profile?.phone ?? "", year_of_study: String(profile?.year_of_study ?? 1) }} onDone={() => { setRegisterFor(null); toast.success("You are registered."); refresh(); }} />}
         </DialogContent>
       </Dialog>
 
