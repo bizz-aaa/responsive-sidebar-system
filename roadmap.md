@@ -4,4 +4,9 @@
 - [x] Convert every visible interface and validation message to English.
 - [x] Fix profile refresh and signed-in content visibility.
 - [x] Verify account flow and mobile/desktop pages.
-- [x] Verify native phone/password sign-in; hosted Phone provider is enabled and signup, completion, reload, sign-out and returning sign-in passed.
+- [x] Verify native phone/password sign-in; hosted Phone provider is enabled and signup, completion, reload, sign-out and returning sign-in passed.- [x] Family groups (auto mixed groups of 5, leader, admin export).
+- [x] Readings (Bible plan, lessons, book of the year uploads).
+- [x] Events with contributions, share link, public registration, export.
+- [x] Finance: admin-set contributions, member payment claims, admin confirmation, records export.
+- [x] Members: own details; admin export.
+- [x] Leadership: Adcom/Excom customizable positions; admin positions; confirmed deletes.

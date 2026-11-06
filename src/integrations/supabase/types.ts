@@ -14,6 +14,283 @@ export type Database = {
   }
   public: {
     Tables: {
+      contributions: {
+        Row: {
+          amount: number
+          created_at: string
+          due_date: string | null
+          event_id: string | null
+          id: string
+          kind: string
+          title: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          due_date?: string | null
+          event_id?: string | null
+          id?: string
+          kind?: string
+          title: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          due_date?: string | null
+          event_id?: string | null
+          id?: string
+          kind?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contributions_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: true
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      event_registrations: {
+        Row: {
+          created_at: string
+          event_id: string
+          full_name: string
+          id: string
+          paid: boolean
+          phone: string
+          residence: string
+          user_id: string | null
+          year_of_study: number
+        }
+        Insert: {
+          created_at?: string
+          event_id: string
+          full_name: string
+          id?: string
+          paid?: boolean
+          phone: string
+          residence: string
+          user_id?: string | null
+          year_of_study: number
+        }
+        Update: {
+          created_at?: string
+          event_id?: string
+          full_name?: string
+          id?: string
+          paid?: boolean
+          phone?: string
+          residence?: string
+          user_id?: string | null
+          year_of_study?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          contribution_amount: number
+          created_at: string
+          id: string
+          location: string
+          starts_at: string
+          title: string
+        }
+        Insert: {
+          contribution_amount?: number
+          created_at?: string
+          id?: string
+          location: string
+          starts_at: string
+          title: string
+        }
+        Update: {
+          contribution_amount?: number
+          created_at?: string
+          id?: string
+          location?: string
+          starts_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      family_groups: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      family_members: {
+        Row: {
+          group_id: string
+          is_leader: boolean
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          group_id: string
+          is_leader?: boolean
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          group_id?: string
+          is_leader?: boolean
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "family_groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "family_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leaders: {
+        Row: {
+          created_at: string
+          id: string
+          leader_name: string
+          leader_phone: string | null
+          position_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          leader_name: string
+          leader_phone?: string | null
+          position_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          leader_name?: string
+          leader_phone?: string | null
+          position_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leaders_position_id_fkey"
+            columns: ["position_id"]
+            isOneToOne: false
+            referencedRelation: "leadership_positions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leaders_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leadership_positions: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          is_admin: boolean
+          title: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          is_admin?: boolean
+          title: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          is_admin?: boolean
+          title?: string
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount: number
+          confirmed_at: string | null
+          contribution_id: string
+          created_at: string
+          id: string
+          reference: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          confirmed_at?: string | null
+          contribution_id: string
+          created_at?: string
+          id?: string
+          reference?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          confirmed_at?: string | null
+          contribution_id?: string
+          created_at?: string
+          id?: string
+          reference?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_contribution_id_fkey"
+            columns: ["contribution_id"]
+            isOneToOne: false
+            referencedRelation: "contributions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           baptized: boolean | null
@@ -56,12 +333,47 @@ export type Database = {
         }
         Relationships: []
       }
+      readings: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          file_name: string | null
+          file_path: string | null
+          id: string
+          title: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          id?: string
+          title: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      assign_family_group: { Args: { _uid: string }; Returns: undefined }
+      assign_unassigned_members: { Args: never; Returns: number }
+      claim_first_admin: { Args: never; Returns: boolean }
+      event_registration_count: { Args: { _event: string }; Returns: number }
+      is_admin: { Args: { _uid: string }; Returns: boolean }
+      my_family_group: { Args: { _uid: string }; Returns: string }
     }
     Enums: {
       [_ in never]: never

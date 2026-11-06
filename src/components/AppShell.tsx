@@ -1,7 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Bell, CalendarDays, Home, Menu, Shield, Users, Wallet, X, LogOut } from "lucide-react";
-import { currentUser } from "@/lib/mock-data";
+import { BookOpen, CalendarDays, HeartHandshake, Home, Menu, Shield, Users, Wallet, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogos } from "./BrandLogos";
 import { useAccount } from "./AccountProvider";
@@ -12,9 +11,11 @@ import { useNavigate } from "@tanstack/react-router";
 const nav = [
   { to: "/dashboard", label: "Dashboard", icon: Home },
   { to: "/members", label: "Members", icon: Users },
-  { to: "/finance", label: "Finance", icon: Wallet },
+  { to: "/family", label: "Family Groups", icon: HeartHandshake },
+  { to: "/readings", label: "Readings", icon: BookOpen },
   { to: "/events", label: "Events", icon: CalendarDays },
-  { to: "/admin", label: "Admin", icon: Shield },
+  { to: "/finance", label: "Finance", icon: Wallet },
+  { to: "/leadership", label: "Leadership", icon: Shield },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -61,12 +62,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="hidden items-center gap-1.5 rounded-full bg-glass px-2.5 py-1 text-xs sm:flex">
             <span className="h-2 w-2 rounded-full bg-chart-2" /> Online
           </span>
-          <Button aria-label="Notifications" className="relative rounded-md bg-glass p-2">
-            <Bell className="h-4 w-4" />
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px]">3</span>
-          </Button>
           <span className="bg-avatar-gradient hidden h-8 w-8 items-center justify-center rounded-md text-sm font-bold sm:flex">
-            {(profile?.full_name ?? currentUser.name)[0]}
+            {(profile?.full_name ?? "T")[0]}
           </span>
           {user ? <Button aria-label="Sign out" variant="ghost" onClick={signOut} className="border border-glass-border bg-glass text-on-ocean"><LogOut /><span className="hidden sm:inline">Sign out</span></Button> : <Button asChild className="border border-glass-border bg-glass text-on-ocean"><Link to="/auth">Sign in</Link></Button>}
         </div>

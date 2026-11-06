@@ -13,12 +13,15 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as SignUpRouteImport } from './routes/sign-up'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedCompleteRegistrationRouteImport } from './routes/_authenticated/complete-registration'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated/events'
+import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
 import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
+import { Route as AuthenticatedLeadershipRouteImport } from './routes/_authenticated/leadership'
 import { Route as AuthenticatedMembersRouteImport } from './routes/_authenticated/members'
+import { Route as AuthenticatedReadingsRouteImport } from './routes/_authenticated/readings'
+import { Route as RegisterEventIdRouteImport } from './routes/register.$eventId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -39,11 +42,6 @@ const SignUpRoute = SignUpRouteImport.update({
   path: '/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedCompleteRegistrationRoute =
   AuthenticatedCompleteRegistrationRouteImport.update({
     id: '/complete-registration',
@@ -60,9 +58,19 @@ const AuthenticatedEventsRoute = AuthenticatedEventsRouteImport.update({
   path: '/events',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFamilyRoute = AuthenticatedFamilyRouteImport.update({
+  id: '/family',
+  path: '/family',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedFinanceRoute = AuthenticatedFinanceRouteImport.update({
   id: '/finance',
   path: '/finance',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLeadershipRoute = AuthenticatedLeadershipRouteImport.update({
+  id: '/leadership',
+  path: '/leadership',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedMembersRoute = AuthenticatedMembersRouteImport.update({
@@ -70,28 +78,44 @@ const AuthenticatedMembersRoute = AuthenticatedMembersRouteImport.update({
   path: '/members',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedReadingsRoute = AuthenticatedReadingsRouteImport.update({
+  id: '/readings',
+  path: '/readings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const RegisterEventIdRoute = RegisterEventIdRouteImport.update({
+  id: '/register/$eventId',
+  path: '/register/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/sign-up': typeof SignUpRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/complete-registration': typeof AuthenticatedCompleteRegistrationRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/events': typeof AuthenticatedEventsRoute
+  '/family': typeof AuthenticatedFamilyRoute
   '/finance': typeof AuthenticatedFinanceRoute
+  '/leadership': typeof AuthenticatedLeadershipRoute
   '/members': typeof AuthenticatedMembersRoute
+  '/readings': typeof AuthenticatedReadingsRoute
+  '/register/$eventId': typeof RegisterEventIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/sign-up': typeof SignUpRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/complete-registration': typeof AuthenticatedCompleteRegistrationRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/events': typeof AuthenticatedEventsRoute
+  '/family': typeof AuthenticatedFamilyRoute
   '/finance': typeof AuthenticatedFinanceRoute
+  '/leadership': typeof AuthenticatedLeadershipRoute
   '/members': typeof AuthenticatedMembersRoute
+  '/readings': typeof AuthenticatedReadingsRoute
+  '/register/$eventId': typeof RegisterEventIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -99,12 +123,15 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/sign-up': typeof SignUpRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/complete-registration': typeof AuthenticatedCompleteRegistrationRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/events': typeof AuthenticatedEventsRoute
+  '/_authenticated/family': typeof AuthenticatedFamilyRoute
   '/_authenticated/finance': typeof AuthenticatedFinanceRoute
+  '/_authenticated/leadership': typeof AuthenticatedLeadershipRoute
   '/_authenticated/members': typeof AuthenticatedMembersRoute
+  '/_authenticated/readings': typeof AuthenticatedReadingsRoute
+  '/register/$eventId': typeof RegisterEventIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -112,35 +139,44 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/sign-up'
-    | '/admin'
     | '/complete-registration'
     | '/dashboard'
     | '/events'
+    | '/family'
     | '/finance'
+    | '/leadership'
     | '/members'
+    | '/readings'
+    | '/register/$eventId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/sign-up'
-    | '/admin'
     | '/complete-registration'
     | '/dashboard'
     | '/events'
+    | '/family'
     | '/finance'
+    | '/leadership'
     | '/members'
+    | '/readings'
+    | '/register/$eventId'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/sign-up'
-    | '/_authenticated/admin'
     | '/_authenticated/complete-registration'
     | '/_authenticated/dashboard'
     | '/_authenticated/events'
+    | '/_authenticated/family'
     | '/_authenticated/finance'
+    | '/_authenticated/leadership'
     | '/_authenticated/members'
+    | '/_authenticated/readings'
+    | '/register/$eventId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -148,6 +184,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   SignUpRoute: typeof SignUpRoute
+  RegisterEventIdRoute: typeof RegisterEventIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -180,13 +217,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/complete-registration': {
       id: '/_authenticated/complete-registration'
       path: '/complete-registration'
@@ -208,11 +238,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEventsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/family': {
+      id: '/_authenticated/family'
+      path: '/family'
+      fullPath: '/family'
+      preLoaderRoute: typeof AuthenticatedFamilyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/finance': {
       id: '/_authenticated/finance'
       path: '/finance'
       fullPath: '/finance'
       preLoaderRoute: typeof AuthenticatedFinanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/leadership': {
+      id: '/_authenticated/leadership'
+      path: '/leadership'
+      fullPath: '/leadership'
+      preLoaderRoute: typeof AuthenticatedLeadershipRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/members': {
@@ -222,26 +266,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMembersRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/readings': {
+      id: '/_authenticated/readings'
+      path: '/readings'
+      fullPath: '/readings'
+      preLoaderRoute: typeof AuthenticatedReadingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/register/$eventId': {
+      id: '/register/$eventId'
+      path: '/register/$eventId'
+      fullPath: '/register/$eventId'
+      preLoaderRoute: typeof RegisterEventIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedCompleteRegistrationRoute: typeof AuthenticatedCompleteRegistrationRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEventsRoute: typeof AuthenticatedEventsRoute
+  AuthenticatedFamilyRoute: typeof AuthenticatedFamilyRoute
   AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
+  AuthenticatedLeadershipRoute: typeof AuthenticatedLeadershipRoute
   AuthenticatedMembersRoute: typeof AuthenticatedMembersRoute
+  AuthenticatedReadingsRoute: typeof AuthenticatedReadingsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedCompleteRegistrationRoute:
     AuthenticatedCompleteRegistrationRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEventsRoute: AuthenticatedEventsRoute,
+  AuthenticatedFamilyRoute: AuthenticatedFamilyRoute,
   AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
+  AuthenticatedLeadershipRoute: AuthenticatedLeadershipRoute,
   AuthenticatedMembersRoute: AuthenticatedMembersRoute,
+  AuthenticatedReadingsRoute: AuthenticatedReadingsRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -252,6 +314,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   SignUpRoute: SignUpRoute,
+  RegisterEventIdRoute: RegisterEventIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
