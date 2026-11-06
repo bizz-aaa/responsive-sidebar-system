@@ -68,7 +68,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="bg-avatar-gradient hidden h-8 w-8 items-center justify-center rounded-md text-sm font-bold sm:flex">
             {(profile?.full_name ?? currentUser.name)[0]}
           </span>
-          {user ? <Button variant="ghost" onClick={signOut} className="border border-glass-border bg-glass text-on-ocean"><LogOut /><span className="hidden sm:inline">Sign out</span></Button> : <Button asChild className="border border-glass-border bg-glass text-on-ocean"><Link to="/auth">Sign in</Link></Button>}
+          {user ? <Button aria-label="Sign out" variant="ghost" onClick={signOut} className="border border-glass-border bg-glass text-on-ocean"><LogOut /><span className="hidden sm:inline">Sign out</span></Button> : <Button asChild className="border border-glass-border bg-glass text-on-ocean"><Link to="/auth">Sign in</Link></Button>}
         </div>
       </header>
 

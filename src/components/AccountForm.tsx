@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Eye, EyeOff, ArrowRight, LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { signupSchema, signinSchema, signinErrorMessage } from "@/lib/registration";
+import { signupSchema, signinSchema, signinErrorMessage, accountDestination } from "@/lib/registration";
 import { registerAccount } from "@/lib/registration.functions";
 import { AuthLayout } from "./AuthLayout";
 import { useAccount } from "./AccountProvider";
@@ -15,7 +15,7 @@ export const fieldClass = "h-12 w-full rounded-lg border border-glass-border bg-
 export function AccountForm({ signup = false }: { signup?: boolean }) {
   const navigate = useNavigate(); const register = useServerFn(registerAccount);
   const fetchProfile = useServerFn(getProfile); const queryClient = useQueryClient(); const { user, profile, loading } = useAccount();
-  useEffect(() => { if (!loading && user && profile) void navigate({ to: profile.registration_complete ? "/dashboard" : "/complete-registration", replace: true }); }, [loading, user, profile, navigate]);
+  useEffect(() => { if (!loading && user && profile) void navigate({ to: accountDestination(profile.registration_complete), replace: true }); }, [loading, user, profile, navigate]);
   const [form, setForm] = useState({ full_name: "", phone: "", password: "" });
   const [show, setShow] = useState(false); const [busy, setBusy] = useState(false); const [error, setError] = useState("");
   async function submit(e: FormEvent) {
@@ -31,7 +31,7 @@ export function AccountForm({ signup = false }: { signup?: boolean }) {
       const { data: identity } = await supabase.auth.getUser();
       const savedProfile = await fetchProfile();
       if (identity.user) queryClient.setQueryData(["profile", identity.user.id], savedProfile);
-      await navigate({ to: savedProfile.registration_complete ? "/dashboard" : "/complete-registration", replace: true });
+      await navigate({ to: accountDestination(savedProfile.registration_complete), replace: true });
     } catch { setError("Unable to load your account. Please try again."); } finally { setBusy(false); }
   }
   return <AuthLayout title={signup ? "Create account" : "Sign in"}>
