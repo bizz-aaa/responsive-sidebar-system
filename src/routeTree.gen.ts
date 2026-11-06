@@ -13,7 +13,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as SignUpRouteImport } from './routes/sign-up'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedCompleteRegistrationRouteImport } from './routes/_authenticated/complete-registration'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated/events'
@@ -42,11 +41,6 @@ const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
   path: '/sign-up',
   getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCompleteRegistrationRoute =
   AuthenticatedCompleteRegistrationRouteImport.update({
@@ -99,7 +93,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/sign-up': typeof SignUpRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/complete-registration': typeof AuthenticatedCompleteRegistrationRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/events': typeof AuthenticatedEventsRoute
@@ -114,7 +107,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/sign-up': typeof SignUpRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/complete-registration': typeof AuthenticatedCompleteRegistrationRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/events': typeof AuthenticatedEventsRoute
@@ -131,7 +123,6 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/sign-up': typeof SignUpRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/complete-registration': typeof AuthenticatedCompleteRegistrationRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/events': typeof AuthenticatedEventsRoute
@@ -148,7 +139,6 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/sign-up'
-    | '/admin'
     | '/complete-registration'
     | '/dashboard'
     | '/events'
@@ -163,7 +153,6 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/sign-up'
-    | '/admin'
     | '/complete-registration'
     | '/dashboard'
     | '/events'
@@ -179,7 +168,6 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/sign-up'
-    | '/_authenticated/admin'
     | '/_authenticated/complete-registration'
     | '/_authenticated/dashboard'
     | '/_authenticated/events'
@@ -228,13 +216,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/sign-up'
       preLoaderRoute: typeof SignUpRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/complete-registration': {
       id: '/_authenticated/complete-registration'
@@ -303,7 +284,6 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedCompleteRegistrationRoute: typeof AuthenticatedCompleteRegistrationRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEventsRoute: typeof AuthenticatedEventsRoute
@@ -315,7 +295,6 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedCompleteRegistrationRoute:
     AuthenticatedCompleteRegistrationRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
