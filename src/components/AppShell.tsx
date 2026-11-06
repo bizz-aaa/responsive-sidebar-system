@@ -90,7 +90,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         )}
 
         <main className="min-w-0 flex-1 p-4 sm:p-6">
-          <div className="mx-auto max-w-6xl space-y-4">{loading ? <div role="status" className="py-16 text-center">Loading your account…</div> : error ? <div role="alert" className="py-16 text-center"><p className="mb-4">Unable to load your account.</p><Button onClick={retry}>Try again</Button></div> : user && profile && !profile.registration_complete ? <div className="py-12"><h1 className="mb-4 text-2xl font-bold">Complete your registration</h1><Button asChild><Link to="/complete-registration">Complete registration</Link></Button></div> : children}</div>
+          <div key={path} className="page-enter mx-auto max-w-6xl space-y-4">{loading ? <div role="status" className="py-16 text-center">Loading your account…</div> : error ? <div role="alert" className="py-16 text-center"><p className="mb-4">Unable to load your account.</p><Button onClick={retry}>Try again</Button></div> : user && profile && !profile.registration_complete ? <div className="py-12"><h1 className="mb-4 text-2xl font-bold">Complete your registration</h1><Button asChild><Link to="/complete-registration">Complete registration</Link></Button></div> : children}</div>
         </main>
       </div>
     </div>
