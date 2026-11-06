@@ -1,7 +1,8 @@
+import { Users as Users } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ExportButtons } from "@/components/ConfirmDelete";
 import { useAccount } from "@/components/AccountProvider";
 import { supabase } from "@/integrations/supabase/client";
@@ -28,7 +29,7 @@ function MembersPage() {
   const info: [string, string][] = profile ? [["Full name", profile.full_name], ["Phone", profile.phone], ["Gender", genderLabel(profile.gender)], ["Course", profile.course ?? "—"], ["Course duration", `${profile.course_duration ?? "—"} years`], ["Year of study", String(profile.year_of_study ?? "—")], ["Baptized", profile.baptized ? "Yes" : "No"], ["Church", profile.church ?? "—"]] : [];
   return (
     <AppShell>
-      <PageTitle title="Members" subtitle={isAdmin ? `${all.data?.length ?? 0} registered members` : "Your membership details"} />
+      <PageTitle icon={Users} title="Members" subtitle={isAdmin ? `${all.data?.length ?? 0} registered members` : "Your membership details"} />
       <WhiteCard>
         <h2 className="mb-3 font-semibold">My details</h2>
         <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

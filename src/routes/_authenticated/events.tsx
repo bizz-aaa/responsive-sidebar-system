@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
 import { CalendarDays, Link2, MapPin, Users } from "lucide-react";
 import { toast } from "sonner";
-import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ConfirmDelete, ExportButtons } from "@/components/ConfirmDelete";
 import { EventRegistrationForm } from "@/components/EventRegistrationForm";
 import { useAccount } from "@/components/AccountProvider";
@@ -48,7 +48,7 @@ function EventsPage() {
 
   return (
     <AppShell>
-      <PageTitle title="Events" subtitle="Register for events and share the link with others" />
+      <PageTitle icon={CalendarDays} title="Events" subtitle="Register for events and share the link with others" />
       <div className="grid gap-4 lg:grid-cols-3">
         {isAdmin && (
           <WhiteCard>

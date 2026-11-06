@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
 import { BookOpen, Download } from "lucide-react";
 import { toast } from "sonner";
-import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ConfirmDelete } from "@/components/ConfirmDelete";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -42,7 +42,7 @@ function ReadingsPage() {
 
   return (
     <AppShell>
-      <PageTitle title="Readings" subtitle="Study materials shared by leadership" />
+      <PageTitle icon={BookOpen} title="Readings" subtitle="Study materials shared by leadership" />
       <div className="flex flex-wrap gap-2">
         {readingCategories.map((c) => <Button key={c.id} onClick={() => setTab(c.id)} variant="outline" className={`rounded-full border-glass-border ${tab === c.id ? "bg-card text-card-foreground" : "bg-glass text-on-ocean"}`}>{c.label}</Button>)}
       </div>

@@ -1,8 +1,9 @@
+import { HeartHandshake as HeartHandshake } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Crown, Phone } from "lucide-react";
 import { toast } from "sonner";
-import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ConfirmDelete, ExportButtons } from "@/components/ConfirmDelete";
 import { Button } from "@/components/ui/button";
 import { useAccount } from "@/components/AccountProvider";
@@ -48,7 +49,7 @@ function FamilyPage() {
 
   return (
     <AppShell>
-      <PageTitle title="Family Groups" subtitle="Groups of five mixing gender and year of study, formed automatically as members register." />
+      <PageTitle icon={HeartHandshake} title="Family Groups" subtitle="Groups of five mixing gender and year of study, formed automatically as members register." />
       {isAdmin && (
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Button variant="outline" className="border-glass-border bg-glass text-on-ocean" onClick={assignAll}>Assign unassigned members</Button>

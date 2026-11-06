@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
-import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ConfirmDelete } from "@/components/ConfirmDelete";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -44,7 +44,7 @@ function LeadershipPage() {
 
   return (
     <AppShell>
-      <PageTitle title="Leadership" subtitle="Positions marked Full admin can manage the whole system" />
+      <PageTitle icon={Shield} title="Leadership" subtitle="Positions marked Full admin can manage the whole system" />
       {noAdmins && !loading && (
         <WhiteCard><p className="mb-3 text-sm">No admin has been set yet. The first leader to claim becomes Chairperson and full admin.</p><Button onClick={claim}><ShieldCheck />Claim admin access</Button></WhiteCard>
       )}

@@ -1,8 +1,9 @@
+import { Wallet as Wallet } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
-import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ConfirmDelete, ExportButtons } from "@/components/ConfirmDelete";
 import { useAccount } from "@/components/AccountProvider";
 import { Button } from "@/components/ui/button";
@@ -59,7 +60,7 @@ function FinancePage() {
 
   return (
     <AppShell>
-      <PageTitle title="Finance" subtitle={isAdmin ? `Confirmed collections: ${tzs(totalConfirmed)}` : "Your contributions"} />
+      <PageTitle icon={Wallet} title="Finance" subtitle={isAdmin ? `Confirmed collections: ${tzs(totalConfirmed)}` : "Your contributions"} />
       <WhiteCard>
         <h2 className="mb-3 font-semibold">My contributions</h2>
         <div className="space-y-2">
