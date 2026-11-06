@@ -39,23 +39,30 @@ function Dashboard() {
   ];
   return (
     <AppShell>
-      <div className="flex items-center gap-4 py-4">
-        <div className="bg-avatar-gradient flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border-2 border-glass-border text-2xl font-bold">{profile?.full_name[0]}</div>
-        <div className="min-w-0">
-          <p className="mb-1 text-xs text-on-ocean/65">Welcome to TUCASA Nyerere Campus</p>
-          <h1 className="text-lg font-extrabold">{profile?.full_name}</h1>
-          <p className="text-sm text-on-ocean/85">{profile?.course} · Year {profile?.year_of_study}</p>
-          <span className="mt-1 inline-block rounded-md border border-glass-border bg-glass px-2 py-0.5 text-xs font-semibold">{profile?.phone}</span>
+      <section className="relative overflow-hidden rounded-2xl border border-glass-border bg-glass p-4 backdrop-blur-md sm:p-6">
+        <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-avatar-gradient opacity-30 blur-2xl" />
+        <div className="relative flex items-center gap-3 sm:gap-4">
+          <div className="bg-avatar-gradient flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-glass-border text-xl font-bold shadow-lg sm:h-16 sm:w-16 sm:text-2xl">{profile?.full_name[0]}</div>
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] uppercase tracking-widest text-on-ocean/60">{greeting()}</p>
+            <h1 className="truncate text-base font-extrabold sm:text-xl">{profile?.full_name}</h1>
+            <p className="truncate text-xs text-on-ocean/80 sm:text-sm">{profile?.course}</p>
+          </div>
         </div>
-      </div>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <div className="relative mt-3 flex flex-wrap gap-2 text-[11px] font-semibold sm:text-xs">
+          <span className="rounded-full border border-glass-border bg-glass px-2.5 py-0.5">Year {profile?.year_of_study}</span>
+          <span className="rounded-full border border-glass-border bg-glass px-2.5 py-0.5">{profile?.phone}</span>
+        </div>
+      </section>
+      <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
         {stats.map((s) => (
-          <WhiteCard key={s.label} className="text-center">
-            <s.icon className="mx-auto h-7 w-7" />
-            <p className="mt-3 text-sm text-on-ocean/70">{s.label}</p>
-            <p className="mt-2 truncate text-xl font-bold">{s.value}</p>
-            <Link to={s.to} className="mt-3 inline-block text-sm text-link">View all →</Link>
-          </WhiteCard>
+          <Link key={s.label} to={s.to} className="group flex min-w-0 items-center gap-2.5 rounded-xl border border-glass-border bg-glass p-3 backdrop-blur-md transition hover:bg-glass/80 sm:p-4">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-avatar-gradient sm:h-10 sm:w-10"><s.icon className="h-4 w-4 sm:h-5 sm:w-5" /></span>
+            <span className="min-w-0">
+              <span className="block truncate text-[11px] text-on-ocean/70 sm:text-xs">{s.label}</span>
+              <span className="block truncate text-sm font-bold sm:text-base">{s.value}</span>
+            </span>
+          </Link>
         ))}
       </div>
       <WhiteCard>
@@ -72,4 +79,9 @@ function Dashboard() {
       </WhiteCard>
     </AppShell>
   );
+}
+
+function greeting() {
+  const h = new Date().getHours();
+  return h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
 }

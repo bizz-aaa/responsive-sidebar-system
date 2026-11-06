@@ -57,7 +57,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Menu className="h-5 w-5" />
         </Button>
         <div className="hidden sm:block"><BrandLogos /></div>
-        <div className="min-w-0"><span className="block text-lg font-bold">TUCASA <span className="font-normal text-on-ocean/70">TNC</span></span><span className="hidden text-xs text-on-ocean/70 md:block">Nyerere Campus Management System</span></div>
+        <div className="min-w-0"><span className="block text-lg font-bold">TNC <span className="font-normal text-on-ocean/70">UDSM</span></span><span className="hidden text-xs text-on-ocean/70 md:block">Nyerere Campus Management System</span></div>
         <div className="ml-auto flex items-center gap-3">
           <span className="hidden items-center gap-1.5 rounded-full bg-glass px-2.5 py-1 text-xs sm:flex">
             <span className="h-2 w-2 rounded-full bg-chart-2" /> Online
@@ -79,7 +79,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="absolute inset-0 bg-ocean-deep/60" onClick={() => setOpen(false)} />
             <aside className="relative h-full w-64 bg-ocean-deep shadow-xl">
               <div className="flex h-16 items-center justify-between border-b border-glass-border px-4">
-                <span className="font-bold">TUCASA TNC</span>
+                <span className="font-bold">TNC UDSM</span>
                 <Button aria-label="Close menu" onClick={() => setOpen(false)}>
                   <X className="h-5 w-5" />
                 </Button>
