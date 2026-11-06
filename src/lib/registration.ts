@@ -10,7 +10,7 @@ export const signupSchema = z.object({
   password: z.string().min(8, "Password iwe na herufi angalau 8.").max(128),
 });
 export const signinSchema = signupSchema.pick({ phone: true, password: true });
-export function signinErrorMessage(error: { code?: string }, signup = false) {
+export function signinErrorMessage(error: { code?: string | undefined }, signup = false) {
   if (error.code === "phone_provider_disabled") {
     return "Kuingia kwa simu hakujaruhusiwa bado. Msimamizi awashe Phone kwenye Lovable Cloud → Users → Auth settings.";
   }
