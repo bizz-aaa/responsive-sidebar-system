@@ -57,7 +57,7 @@ function FamilyPage() {
         </div>
       )}
       {q.isPending ? <p>Loading…</p> : sorted.length === 0 ? (
-        <WhiteCard><p>You have not been placed in a family group yet. Groups are formed once you complete registration.</p></WhiteCard>
+        <EmptyState icon={HeartHandshake} title="No Family Groups Yet" text="You haven't been assigned to a family group yet. Groups are formed automatically as members complete registration." />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {sorted.map(([id, g]) => (

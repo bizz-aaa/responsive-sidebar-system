@@ -59,7 +59,7 @@ function ReadingsPage() {
           </WhiteCard>
         )}
         <div className={`space-y-3 ${isAdmin ? "lg:col-span-2" : "lg:col-span-3"}`}>
-          {shown.length === 0 && <WhiteCard><p className="text-sm">No readings here yet.</p></WhiteCard>}
+          {shown.length === 0 && <EmptyState icon={BookOpen} title="No readings yet" text="Readings shared by leadership will appear here." />}
           {shown.map((r) => (
             <WhiteCard key={r.id}>
               <div className="flex items-start justify-between gap-3">

@@ -63,7 +63,7 @@ function EventsPage() {
           </WhiteCard>
         )}
         <div className={`grid gap-4 md:grid-cols-2 ${isAdmin ? "lg:col-span-2" : "lg:col-span-3 xl:grid-cols-3"}`}>
-          {events.data?.length === 0 && <WhiteCard><p className="text-sm">No events yet.</p></WhiteCard>}
+          {events.data?.length === 0 && <div className="md:col-span-2 xl:col-span-3"><EmptyState icon={CalendarDays} title="No events yet" text="Upcoming events will appear here." /></div>}
           {events.data?.map((ev) => {
             const mine = regs.data?.some((r) => r.event_id === ev.id && r.user_id === user?.id);
             return (

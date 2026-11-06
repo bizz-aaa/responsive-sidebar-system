@@ -2,7 +2,7 @@ import { Users as Users } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ExportButtons } from "@/components/ConfirmDelete";
 import { useAccount } from "@/components/AccountProvider";
 import { supabase } from "@/integrations/supabase/client";

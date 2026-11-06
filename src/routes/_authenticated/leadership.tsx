@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { ShieldCheck } from "lucide-react";
+import { Shield } from "lucide-react";
 import { toast } from "sonner";
-import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ConfirmDelete } from "@/components/ConfirmDelete";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,16 +18,14 @@ export const Route = createFileRoute("/_authenticated/leadership")({
 const bodies = [{ id: "adcom", label: "Adcom" }, { id: "excom", label: "Excom" }] as const;
 
 function LeadershipPage() {
-  const { isAdmin, loading } = useIsAdmin(); const qc = useQueryClient();
+  const { isAdmin } = useIsAdmin(); const qc = useQueryClient();
   const positions = useQuery({ queryKey: ["positions"], queryFn: async () => { const { data, error } = await supabase.from("leadership_positions").select("*").order("created_at"); if (error) throw error; return data; } });
   const leaders = useQuery({ queryKey: ["leaders"], queryFn: async () => { const { data, error } = await supabase.from("leaders").select("*").order("created_at"); if (error) throw error; return data; } });
   const members = useQuery({ queryKey: ["all-members"], enabled: isAdmin, queryFn: async () => { const { data, error } = await supabase.from("profiles").select("*").eq("registration_complete", true).order("full_name"); if (error) throw error; return data; } });
   const refresh = () => { qc.invalidateQueries({ queryKey: ["positions"] }); qc.invalidateQueries({ queryKey: ["leaders"] }); qc.invalidateQueries({ queryKey: ["is-admin"] }); };
   const [newPos, setNewPos] = useState<Record<string, { title: string; is_admin: boolean }>>({ adcom: { title: "", is_admin: true }, excom: { title: "", is_admin: false } });
   const [pick, setPick] = useState<Record<string, string>>({});
-  const noAdmins = !leaders.isPending && !positions.isPending && !(leaders.data ?? []).some((l) => positions.data?.find((p) => p.id === l.position_id)?.is_admin);
 
-  async function claim() { const { data, error } = await supabase.rpc("claim_first_admin"); if (error || !data) toast.error("Could not claim."); else { toast.success("You are now an admin."); refresh(); } }
   async function addPosition(body: string) {
     const p = newPos[body]!; if (p.title.trim().length < 2) return void toast.error("Enter a position title.");
     const { error } = await supabase.from("leadership_positions").insert({ body, title: p.title.trim(), is_admin: p.is_admin });
@@ -44,10 +42,7 @@ function LeadershipPage() {
 
   return (
     <AppShell>
-      <PageTitle icon={Shield} title="Leadership" subtitle="Positions marked Full admin can manage the whole system" />
-      {noAdmins && !loading && (
-        <WhiteCard><p className="mb-3 text-sm">No admin has been set yet. The first leader to claim becomes Chairperson and full admin.</p><Button onClick={claim}><ShieldCheck />Claim admin access</Button></WhiteCard>
-      )}
+      <PageTitle icon={Shield} title="Leadership" subtitle={isAdmin ? "Add positions and leaders. Positions marked Full admin can manage the system." : "Meet the current Adcom and Excom leaders."} />
       <div className="grid gap-4 lg:grid-cols-2">
         {bodies.map((b) => (
           <WhiteCard key={b.id}>
@@ -73,6 +68,7 @@ function LeadershipPage() {
                   )}
                 </div>
               ))}
+              {!positions.data?.some((p) => p.body === b.id) && <p className="rounded-xl border border-dashed border-glass-border p-4 text-center text-sm text-on-ocean/70">No positions yet.</p>}
               {isAdmin && (
                 <div className="flex flex-wrap gap-2 border-t border-glass-border pt-3">
                   <input className={inputClass + " h-9 flex-1"} placeholder={`New ${b.label} position`} value={newPos[b.id]!.title} onChange={(e) => setNewPos({ ...newPos, [b.id]: { ...newPos[b.id]!, title: e.target.value } })} />
