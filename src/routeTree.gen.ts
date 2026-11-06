@@ -19,6 +19,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated/events'
 import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
 import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
+import { Route as AuthenticatedLeadershipRouteImport } from './routes/_authenticated/leadership'
 import { Route as AuthenticatedMembersRouteImport } from './routes/_authenticated/members'
 import { Route as AuthenticatedReadingsRouteImport } from './routes/_authenticated/readings'
 import { Route as RegisterEventIdRouteImport } from './routes/register.$eventId'
@@ -73,6 +74,11 @@ const AuthenticatedFinanceRoute = AuthenticatedFinanceRouteImport.update({
   path: '/finance',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedLeadershipRoute = AuthenticatedLeadershipRouteImport.update({
+  id: '/leadership',
+  path: '/leadership',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedMembersRoute = AuthenticatedMembersRouteImport.update({
   id: '/members',
   path: '/members',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof AuthenticatedEventsRoute
   '/family': typeof AuthenticatedFamilyRoute
   '/finance': typeof AuthenticatedFinanceRoute
+  '/leadership': typeof AuthenticatedLeadershipRoute
   '/members': typeof AuthenticatedMembersRoute
   '/readings': typeof AuthenticatedReadingsRoute
   '/register/$eventId': typeof RegisterEventIdRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/events': typeof AuthenticatedEventsRoute
   '/family': typeof AuthenticatedFamilyRoute
   '/finance': typeof AuthenticatedFinanceRoute
+  '/leadership': typeof AuthenticatedLeadershipRoute
   '/members': typeof AuthenticatedMembersRoute
   '/readings': typeof AuthenticatedReadingsRoute
   '/register/$eventId': typeof RegisterEventIdRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/_authenticated/events': typeof AuthenticatedEventsRoute
   '/_authenticated/family': typeof AuthenticatedFamilyRoute
   '/_authenticated/finance': typeof AuthenticatedFinanceRoute
+  '/_authenticated/leadership': typeof AuthenticatedLeadershipRoute
   '/_authenticated/members': typeof AuthenticatedMembersRoute
   '/_authenticated/readings': typeof AuthenticatedReadingsRoute
   '/register/$eventId': typeof RegisterEventIdRoute
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/family'
     | '/finance'
+    | '/leadership'
     | '/members'
     | '/readings'
     | '/register/$eventId'
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/family'
     | '/finance'
+    | '/leadership'
     | '/members'
     | '/readings'
     | '/register/$eventId'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/_authenticated/events'
     | '/_authenticated/family'
     | '/_authenticated/finance'
+    | '/_authenticated/leadership'
     | '/_authenticated/members'
     | '/_authenticated/readings'
     | '/register/$eventId'
@@ -259,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFinanceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/leadership': {
+      id: '/_authenticated/leadership'
+      path: '/leadership'
+      fullPath: '/leadership'
+      preLoaderRoute: typeof AuthenticatedLeadershipRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/members': {
       id: '/_authenticated/members'
       path: '/members'
@@ -290,6 +309,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEventsRoute: typeof AuthenticatedEventsRoute
   AuthenticatedFamilyRoute: typeof AuthenticatedFamilyRoute
   AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
+  AuthenticatedLeadershipRoute: typeof AuthenticatedLeadershipRoute
   AuthenticatedMembersRoute: typeof AuthenticatedMembersRoute
   AuthenticatedReadingsRoute: typeof AuthenticatedReadingsRoute
 }
@@ -302,6 +322,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEventsRoute: AuthenticatedEventsRoute,
   AuthenticatedFamilyRoute: AuthenticatedFamilyRoute,
   AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
+  AuthenticatedLeadershipRoute: AuthenticatedLeadershipRoute,
   AuthenticatedMembersRoute: AuthenticatedMembersRoute,
   AuthenticatedReadingsRoute: AuthenticatedReadingsRoute,
 }
