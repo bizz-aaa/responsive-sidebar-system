@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
 import { BookOpen, Download } from "lucide-react";
 import { toast } from "sonner";
-import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ConfirmDelete } from "@/components/ConfirmDelete";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -42,7 +42,7 @@ function ReadingsPage() {
 
   return (
     <AppShell>
-      <PageTitle title="Readings" subtitle="Study materials shared by leadership" />
+      <PageTitle icon={BookOpen} title="Readings" subtitle="Study materials shared by leadership" />
       <div className="flex flex-wrap gap-2">
         {readingCategories.map((c) => <Button key={c.id} onClick={() => setTab(c.id)} variant="outline" className={`rounded-full border-glass-border ${tab === c.id ? "bg-card text-card-foreground" : "bg-glass text-on-ocean"}`}>{c.label}</Button>)}
       </div>
@@ -59,7 +59,7 @@ function ReadingsPage() {
           </WhiteCard>
         )}
         <div className={`space-y-3 ${isAdmin ? "lg:col-span-2" : "lg:col-span-3"}`}>
-          {shown.length === 0 && <WhiteCard><p className="text-sm">No readings here yet.</p></WhiteCard>}
+          {shown.length === 0 && <EmptyState icon={BookOpen} title="No readings yet" text="Readings shared by leadership will appear here." />}
           {shown.map((r) => (
             <WhiteCard key={r.id}>
               <div className="flex items-start justify-between gap-3">

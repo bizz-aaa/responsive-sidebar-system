@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ComponentType, type ReactNode } from "react";
 import { BookOpen, CalendarDays, HeartHandshake, Home, Menu, Shield, Users, Wallet, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogos } from "./BrandLogos";
@@ -98,14 +98,26 @@ export function AppShell({ children }: { children: ReactNode }) {
 }
 
 export function WhiteCard({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-lg border border-glass-border bg-glass p-5 text-on-ocean ${className}`}>{children}</div>;
+  return <div className={`rounded-2xl border border-glass-border bg-glass p-4 text-on-ocean shadow-sm backdrop-blur-sm transition-colors hover:border-on-ocean/30 ${className}`}>{children}</div>;
 }
 
-export function PageTitle({ title, subtitle }: { title: string; subtitle?: string }) {
+export function PageTitle({ title, subtitle, icon: Icon }: { title: string; subtitle?: string; icon?: ComponentType<{ className?: string }> }) {
   return (
-    <div className="border-b border-glass-border py-6">
-      <h1 className="text-xl font-bold sm:text-2xl">{title}</h1>
-      {subtitle && <p className="mt-1 text-sm text-on-ocean/75">{subtitle}</p>}
+    <div className="rounded-3xl border border-glass-border bg-glass px-5 py-7 text-center backdrop-blur-sm sm:py-9">
+      {Icon && <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-chart-4/40 bg-chart-4/20 shadow-lg"><Icon className="h-7 w-7 text-chart-4" /></div>}
+      <h1 className="text-2xl font-bold sm:text-3xl">{title}</h1>
+      {subtitle && <p className="mx-auto mt-2 max-w-xl text-sm text-on-ocean/75">{subtitle}</p>}
+    </div>
+  );
+}
+
+export function EmptyState({ title, text, icon: Icon, children }: { title: string; text?: string; icon?: ComponentType<{ className?: string }>; children?: ReactNode }) {
+  return (
+    <div className="rounded-3xl border border-dashed border-glass-border bg-glass/50 px-5 py-10 text-center">
+      {Icon && <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-chart-4/30 bg-chart-4/10"><Icon className="h-7 w-7 text-chart-4" /></div>}
+      <h2 className="text-lg font-semibold">{title}</h2>
+      {text && <p className="mx-auto mt-2 max-w-md text-sm text-on-ocean/70">{text}</p>}
+      {children && <div className="mt-5">{children}</div>}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
 import { CalendarDays, Link2, MapPin, Users } from "lucide-react";
 import { toast } from "sonner";
-import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
+import { AppShell, EmptyState, PageTitle, WhiteCard } from "@/components/AppShell";
 import { ConfirmDelete, ExportButtons } from "@/components/ConfirmDelete";
 import { EventRegistrationForm } from "@/components/EventRegistrationForm";
 import { useAccount } from "@/components/AccountProvider";
@@ -48,7 +48,7 @@ function EventsPage() {
 
   return (
     <AppShell>
-      <PageTitle title="Events" subtitle="Register for events and share the link with others" />
+      <PageTitle icon={CalendarDays} title="Events" subtitle="Register for events and share the link with others" />
       <div className="grid gap-4 lg:grid-cols-3">
         {isAdmin && (
           <WhiteCard>
@@ -63,7 +63,7 @@ function EventsPage() {
           </WhiteCard>
         )}
         <div className={`grid gap-4 md:grid-cols-2 ${isAdmin ? "lg:col-span-2" : "lg:col-span-3 xl:grid-cols-3"}`}>
-          {events.data?.length === 0 && <WhiteCard><p className="text-sm">No events yet.</p></WhiteCard>}
+          {events.data?.length === 0 && <div className="md:col-span-2 xl:col-span-3"><EmptyState icon={CalendarDays} title="No events yet" text="Upcoming events will appear here." /></div>}
           {events.data?.map((ev) => {
             const mine = regs.data?.some((r) => r.event_id === ev.id && r.user_id === user?.id);
             return (
