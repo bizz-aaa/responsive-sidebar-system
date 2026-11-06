@@ -14,7 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          baptized: boolean | null
+          church: string | null
+          course: string | null
+          course_duration: number | null
+          created_at: string
+          full_name: string
+          gender: string | null
+          id: string
+          phone: string
+          registration_complete: boolean
+          year_of_study: number | null
+        }
+        Insert: {
+          baptized?: boolean | null
+          church?: string | null
+          course?: string | null
+          course_duration?: number | null
+          created_at?: string
+          full_name: string
+          gender?: string | null
+          id: string
+          phone: string
+          registration_complete?: boolean
+          year_of_study?: number | null
+        }
+        Update: {
+          baptized?: boolean | null
+          church?: string | null
+          course?: string | null
+          course_duration?: number | null
+          created_at?: string
+          full_name?: string
+          gender?: string | null
+          id?: string
+          phone?: string
+          registration_complete?: boolean
+          year_of_study?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

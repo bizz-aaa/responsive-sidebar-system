@@ -10,6 +10,8 @@ export const Route = createFileRoute("/members")({
       { name: "description", content: "Search and register TUCASA Nyerere Campus members." },
       { property: "og:title", content: "Members — TUCASA Nyerere Campus" },
       { property: "og:description", content: "Search and register TUCASA Nyerere Campus members." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: MembersPage,

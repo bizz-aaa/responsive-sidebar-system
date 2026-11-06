@@ -2,6 +2,12 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { Bell, CalendarDays, Home, Menu, Shield, Users, Wallet, X, LogOut } from "lucide-react";
 import { currentUser } from "@/lib/mock-data";
+import { Button } from "@/components/ui/button";
+import { BrandLogos } from "./BrandLogos";
+import { useAccount } from "./AccountProvider";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 const nav = [
   { to: "/", label: "Dashboard", icon: Home },
@@ -12,6 +18,8 @@ const nav = [
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const { user, profile } = useAccount(); const queryClient = useQueryClient(); const navigate = useNavigate();
+  async function signOut() { await queryClient.cancelQueries(); queryClient.clear(); await supabase.auth.signOut(); await navigate({ to: "/auth", replace: true }); }
   const [open, setOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   useEffect(() => setOpen(false), [path]);
@@ -46,8 +54,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         >
           <Menu className="h-5 w-5" />
         </button>
-        <span className="text-lg font-bold">TNC</span>
-        <span className="hidden text-sm text-on-ocean/70 md:inline">TUCASA Nyerere Campus Management System</span>
+        <div className="hidden sm:block"><BrandLogos /></div>
+        <div className="min-w-0"><span className="block text-lg font-bold">TUCASA <span className="font-normal text-on-ocean/70">TNC</span></span><span className="hidden text-xs text-on-ocean/70 md:block">Nyerere Campus Management System</span></div>
         <div className="ml-auto flex items-center gap-3">
           <span className="hidden items-center gap-1.5 rounded-full bg-glass px-2.5 py-1 text-xs sm:flex">
             <span className="h-2 w-2 rounded-full bg-chart-2" /> Online
@@ -57,12 +65,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px]">3</span>
           </button>
           <span className="bg-avatar-gradient hidden h-8 w-8 items-center justify-center rounded-md text-sm font-bold sm:flex">
-            {currentUser.name[0]}
+            {(profile?.full_name ?? currentUser.name)[0]}
           </span>
-          <button className="flex items-center gap-1.5 rounded-md border border-glass-border bg-glass px-3 py-1.5 text-sm font-semibold">
-            <LogOut className="h-4 w-4 sm:hidden" />
-            <span className="hidden sm:inline">Logout</span>
-          </button>
+          {user ? <Button variant="ghost" onClick={signOut} className="border border-glass-border bg-glass text-on-ocean"><LogOut /><span className="hidden sm:inline">Toka</span></Button> : <Button asChild className="border border-glass-border bg-glass text-on-ocean"><Link to="/auth">Ingia</Link></Button>}
         </div>
       </header>
 
@@ -87,7 +92,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         )}
 
         <main className="min-w-0 flex-1 p-4 sm:p-6">
-          <div className="mx-auto max-w-6xl space-y-4">{children}</div>
+          <div className="mx-auto max-w-6xl space-y-4">{user && profile && !profile.registration_complete ? <div className="py-12"><h1 className="mb-4 text-2xl font-bold">Kamilisha usajili wako</h1><Button asChild><Link to="/complete-registration">Kamilisha taarifa</Link></Button></div> : children}</div>
         </main>
       </div>
     </div>

@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Phone-only signup uses a validated server function with native Auth user creation; privileged credentials remain server-only because SMS-free signup cannot use ordinary confirmation flow.
+- Registration profiles are caller-scoped through RLS and authenticated server functions; a single root account provider owns session updates and account display.
+- Existing management lists remain demonstration data; profile completion is durable and must not turn demonstration role selectors into authorization.

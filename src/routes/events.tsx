@@ -10,6 +10,8 @@ export const Route = createFileRoute("/events")({
       { name: "description", content: "Fellowships, choir practices and outreach schedules." },
       { property: "og:title", content: "Events — TUCASA Nyerere Campus" },
       { property: "og:description", content: "Fellowships, choir practices and outreach schedules." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: EventsPage,
