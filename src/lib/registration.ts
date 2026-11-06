@@ -10,6 +10,17 @@ export const signupSchema = z.object({
   password: z.string().min(8, "Password iwe na herufi angalau 8.").max(128),
 });
 export const signinSchema = signupSchema.pick({ phone: true, password: true });
+export function signinErrorMessage(error: { code?: string | undefined }, signup = false) {
+  if (error.code === "phone_provider_disabled") {
+    return "Kuingia kwa simu hakujaruhusiwa bado. Msimamizi awashe Phone kwenye Lovable Cloud → Users → Auth settings.";
+  }
+  if (error.code === "over_request_rate_limit" || error.code === "over_email_send_rate_limit") {
+    return "Umejaribu mara nyingi. Subiri kidogo kisha ujaribu tena.";
+  }
+  return signup
+    ? "Akaunti imeundwa, lakini kuingia kumeshindikana. Jaribu ukurasa wa Ingia."
+    : "Namba ya simu au password si sahihi.";
+}
 export const completionSchema = z.object({
   course: z.string().trim().min(1, "Weka kozi yako.").max(150),
   course_duration: z.coerce.number().int().min(1).max(10),

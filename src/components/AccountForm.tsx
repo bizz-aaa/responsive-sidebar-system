@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Eye, EyeOff, ArrowRight, LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { signupSchema, signinSchema } from "@/lib/registration";
+import { signupSchema, signinSchema, signinErrorMessage } from "@/lib/registration";
 import { registerAccount } from "@/lib/registration.functions";
 import { AuthLayout } from "./AuthLayout";
 
@@ -22,7 +22,7 @@ export function AccountForm({ signup = false }: { signup?: boolean }) {
       if (signup) { const registered = await register({ data: signupSchema.parse(form) }); if (registered.error) { setError(registered.error); return; } }
       const credentials = signinSchema.parse(form);
       const { error: loginError } = await supabase.auth.signInWithPassword(credentials);
-      if (loginError) { setError(signup ? "Akaunti imeundwa, lakini kuingia kumeshindikana. Jaribu ukurasa wa Ingia." : "Namba ya simu au password si sahihi."); return; }
+      if (loginError) { setError(signinErrorMessage(loginError, signup)); return; }
       await navigate({ to: "/complete-registration" });
     } catch { setError("Imeshindikana kuunganisha. Jaribu tena."); } finally { setBusy(false); }
   }
