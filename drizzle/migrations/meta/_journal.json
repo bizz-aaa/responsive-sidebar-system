@@ -15,6 +15,13 @@
       "when": 1793951884013,
       "tag": "0001_modules_family_readings_events_finance_leadership",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793952729907,
+      "tag": "0002_system_admins",
+      "breakpoints": true
     }
   ]
 }
