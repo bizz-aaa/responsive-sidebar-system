@@ -1,7 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { BookOpen, CalendarDays, HeartHandshake, Home, Menu, Shield, Users, Wallet, X, LogOut } from "lucide-react";
-import { currentUser } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
 import { BrandLogos } from "./BrandLogos";
 import { useAccount } from "./AccountProvider";
@@ -64,7 +63,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="h-2 w-2 rounded-full bg-chart-2" /> Online
           </span>
           <span className="bg-avatar-gradient hidden h-8 w-8 items-center justify-center rounded-md text-sm font-bold sm:flex">
-            {(profile?.full_name ?? currentUser.name)[0]}
+            {(profile?.full_name ?? "T")[0]}
           </span>
           {user ? <Button aria-label="Sign out" variant="ghost" onClick={signOut} className="border border-glass-border bg-glass text-on-ocean"><LogOut /><span className="hidden sm:inline">Sign out</span></Button> : <Button asChild className="border border-glass-border bg-glass text-on-ocean"><Link to="/auth">Sign in</Link></Button>}
         </div>
