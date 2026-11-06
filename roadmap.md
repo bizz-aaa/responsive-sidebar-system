@@ -1,5 +1,7 @@
 # Tasks
-- [ ] Add uploaded logos to dashboard and authentication pages.
-- [ ] Complete phone/password sign-in without SMS — blocked until the owner enables Phone in Lovable Cloud → Users → Auth settings; hosted Auth returns phone_provider_disabled.
-- [ ] Save required profile details and registration completion.
-- [ ] Verify account flow and mobile/desktop pages.
+- [x] Match the uploaded blue glass design across account and management pages.
+- [x] Simplify authentication pages to logos and forms; make sign-in the entry page.
+- [x] Convert every visible interface and validation message to English.
+- [x] Fix profile refresh and signed-in content visibility.
+- [x] Verify account flow and mobile/desktop pages.
+- [x] Verify native phone/password sign-in; hosted Phone provider is enabled and signup, completion, reload, sign-out and returning sign-in passed.

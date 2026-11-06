@@ -185,3 +185,23 @@
 @utility bg-avatar-gradient {
   background: linear-gradient(135deg, var(--brand-indigo), var(--brand-violet));
 }
+
+/* Reference-matched blue glass surfaces */
+:root {
+  --ocean-deep: oklch(0.37 0.077 239);
+  --ocean: oklch(0.46 0.095 238);
+  --card: oklch(0.48 0.077 236);
+  --card-foreground: var(--on-ocean);
+  --muted: oklch(1 0 0 / 0.07);
+  --muted-foreground: oklch(0.79 0.035 236);
+  --border: var(--glass-border);
+  --input: var(--glass-border);
+  --ring: oklch(0.75 0.12 260);
+  --primary: oklch(0.61 0.18 280);
+  --radius: 0.5rem;
+  --destructive: oklch(0.85 0.12 25);
+}
+body { font-family: Arial, Helvetica, sans-serif; letter-spacing: 0; }
+select option { background: var(--ocean-deep); color: var(--on-ocean); }
+input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-indigo); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }

@@ -1,9 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { AppShell, PageTitle, WhiteCard } from "@/components/AppShell";
 import { contributions as seed, members, tzs, type Contribution } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/finance")({
+export const Route = createFileRoute("/_authenticated/finance")({
   head: () => ({
     meta: [
       { title: "Finance — TUCASA Nyerere Campus" },
@@ -52,7 +53,7 @@ function FinancePage() {
               {types.map((t) => <option key={t}>{t}</option>)}
             </select>
             <input className={input} type="number" placeholder="Amount (TZS)" value={form.amount} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
-            <button className="w-full rounded-md bg-primary py-2 text-sm font-semibold text-primary-foreground">Save</button>
+            <Button className="w-full rounded-md bg-primary py-2 text-sm font-semibold text-primary-foreground">Save</Button>
           </form>
         </WhiteCard>
         <WhiteCard className="lg:col-span-2">

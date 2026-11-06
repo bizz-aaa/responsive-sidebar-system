@@ -32,3 +32,6 @@ use the editor.
 - Phone-only signup uses a validated server function with native Auth user creation; privileged credentials remain server-only because SMS-free signup cannot use ordinary confirmation flow.
 - Registration profiles are caller-scoped through RLS and authenticated server functions; a single root account provider owns session updates and account display.
 - Existing management lists remain demonstration data; profile completion is durable and must not turn demonstration role selectors into authorization.
+
+- The public root renders authentication; management pages live under the managed authenticated layout at named URLs to prevent signed-out content flashes.
+- Profile updates must replace the caller-keyed profile query before navigation so completion cannot leave stale gating state.
