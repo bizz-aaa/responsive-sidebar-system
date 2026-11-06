@@ -31,7 +31,10 @@ use the editor.
 
 - Phone-only signup uses a validated server function with native Auth user creation; privileged credentials remain server-only because SMS-free signup cannot use ordinary confirmation flow.
 - Registration profiles are caller-scoped through RLS and authenticated server functions; a single root account provider owns session updates and account display.
-- Existing management lists remain demonstration data; profile completion is durable and must not turn demonstration role selectors into authorization.
+- Admin rights come only from leaders holding a leadership position flagged admin (checked by the is_admin database function in RLS); UI admin checks are cosmetic.
+- Family groups are assigned in the database when a profile completes registration, so placement never depends on the browser.
+- Every delete goes through the ConfirmDelete dialog (typed DELETE plus confirmation tick).
+- Public event registration writes directly with anonymous insert-only access; registrant lists stay admin/self readable.
 
 - The public root renders authentication; management pages live under the managed authenticated layout at named URLs to prevent signed-out content flashes.
 - Profile updates must replace the caller-keyed profile query before navigation so completion cannot leave stale gating state.
