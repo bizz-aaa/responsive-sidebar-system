@@ -10,6 +10,8 @@ export const Route = createFileRoute("/finance")({
       { name: "description", content: "Track tithes, offerings, contributions and project funds." },
       { property: "og:title", content: "Finance — TUCASA Nyerere Campus" },
       { property: "og:description", content: "Track tithes, offerings, contributions and project funds." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: FinancePage,

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookOpen, CalendarDays, FileText, Users, Wallet } from "lucide-react";
 import { AppShell, WhiteCard } from "@/components/AppShell";
 import { contributions, currentUser, events, members, tzs } from "@/lib/mock-data";
+import { useAccount } from "@/components/AccountProvider";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -10,12 +11,15 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Overview of TUCASA Nyerere Campus members, finances and events." },
       { property: "og:title", content: "Dashboard — TUCASA Nyerere Campus" },
       { property: "og:description", content: "Overview of TUCASA Nyerere Campus members, finances and events." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Dashboard,
 });
 
 function Dashboard() {
+  const { profile } = useAccount();
   const total = contributions.reduce((s, c) => s + c.amount, 0);
   const upcoming = [...events].sort((a, b) => a.date.localeCompare(b.date));
   const stats = [
@@ -27,16 +31,17 @@ function Dashboard() {
   ];
   return (
     <AppShell>
-      <div className="rounded-2xl border border-glass-border bg-glass p-4">
-        <div className="flex items-center gap-4 rounded-xl border border-glass-border bg-glass p-4">
+      <div className="py-4">
+        <div className="flex items-center gap-4">
           <div className="bg-avatar-gradient flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border-2 border-glass-border text-2xl font-bold">
-            {currentUser.name[0]}
+            {(profile?.full_name ?? currentUser.name)[0]}
           </div>
           <div className="min-w-0">
-            <h1 className="truncate text-lg font-extrabold">{currentUser.name}</h1>
-            <p className="truncate text-sm font-semibold text-on-ocean/85">{currentUser.email}</p>
+            <p className="mb-1 text-xs text-on-ocean/65">Karibu TUCASA Nyerere Campus</p>
+            <h1 className="text-lg font-extrabold">{profile?.full_name ?? currentUser.name}</h1>
+            <p className="text-sm text-on-ocean/85">{profile ? `${profile.course} · Mwaka ${profile.year_of_study}` : "University of Dar es Salaam"}</p>
             <span className="mt-1 inline-block rounded-md border border-glass-border bg-glass px-2 py-0.5 text-xs font-semibold">
-              Member ID: {currentUser.memberId}
+              {profile ? profile.phone : `Member ID: ${currentUser.memberId}`}
             </span>
           </div>
         </div>

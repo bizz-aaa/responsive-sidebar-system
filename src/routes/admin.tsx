@@ -10,6 +10,8 @@ export const Route = createFileRoute("/admin")({
       { name: "description", content: "Leadership controls for settings and user roles." },
       { property: "og:title", content: "Admin — TUCASA Nyerere Campus" },
       { property: "og:description", content: "Leadership controls for settings and user roles." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AdminPage,
@@ -28,7 +30,7 @@ function AdminPage() {
           <h2 className="mb-3 font-semibold">System Settings</h2>
           {(Object.keys(settings) as (keyof typeof settings)[]).map((k) => (
             <label key={k} className="flex items-center justify-between border-b py-3 text-sm capitalize last:border-0">
-              {k === "registration" ? "Open registration" : k === "notifications" ? "Email notifications" : "Maintenance mode"}
+              {k === "registration" ? "Open registration" : k === "notifications" ? "Notifications" : "Maintenance mode"}
               <input type="checkbox" className="h-4 w-4" checked={settings[k]} onChange={(e) => setSettings({ ...settings, [k]: e.target.checked })} />
             </label>
           ))}
