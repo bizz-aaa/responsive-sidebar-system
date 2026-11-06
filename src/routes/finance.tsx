@@ -20,7 +20,7 @@ const input = "w-full rounded-md border bg-background px-3 py-2 text-sm";
 
 function FinancePage() {
   const [list, setList] = useState(seed);
-  const [form, setForm] = useState({ member: members[0].name, type: "Tithe" as Contribution["type"], amount: "" });
+  const [form, setForm] = useState({ member: members[0]?.name ?? "", type: "Tithe" as Contribution["type"], amount: "" });
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const amount = Number(form.amount);
