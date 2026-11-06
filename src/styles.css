@@ -154,3 +154,34 @@
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(12px);
 }
+
+/* TUCASA ocean theme */
+:root {
+  --ocean-deep: oklch(0.33 0.07 245);
+  --ocean: oklch(0.45 0.09 245);
+  --glass: oklch(1 0 0 / 0.12);
+  --glass-border: oklch(1 0 0 / 0.25);
+  --on-ocean: oklch(0.98 0 0);
+  --brand-violet: oklch(0.55 0.2 285);
+  --brand-indigo: oklch(0.6 0.17 265);
+  --link: oklch(0.6 0.17 265);
+  --primary: oklch(0.45 0.09 245);
+  --primary-foreground: oklch(0.98 0 0);
+}
+@theme inline {
+  --color-ocean-deep: var(--ocean-deep);
+  --color-ocean: var(--ocean);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-on-ocean: var(--on-ocean);
+  --color-link: var(--link);
+  --color-brand-violet: var(--brand-violet);
+  --color-brand-indigo: var(--brand-indigo);
+}
+@utility bg-ocean-gradient {
+  background: linear-gradient(135deg, var(--ocean-deep), var(--ocean) 55%, var(--ocean-deep));
+  background-attachment: fixed;
+}
+@utility bg-avatar-gradient {
+  background: linear-gradient(135deg, var(--brand-indigo), var(--brand-violet));
+}
