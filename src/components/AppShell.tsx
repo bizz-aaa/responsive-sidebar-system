@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useEffect, useState, type ComponentType, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
 import { BookOpen, CalendarDays, HeartHandshake, Home, Menu, Shield, Users, Wallet, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageContents } from "./PageContents";
 import { BrandLogos } from "./BrandLogos";
 import { useAccount } from "./AccountProvider";
 import { supabase } from "@/integrations/supabase/client";
@@ -23,6 +24,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   async function signOut() { await queryClient.cancelQueries(); queryClient.clear(); await supabase.auth.signOut(); await navigate({ to: "/auth", replace: true }); }
   useEffect(() => { if (!loading && user && profile && !profile.registration_complete) void navigate({ to: "/complete-registration", replace: true }); }, [loading, user, profile, navigate]);
   const [open, setOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const navigating = useRouterState({ select: (s) => s.status === "pending" || s.isLoading || (!!s.resolvedLocation && s.location.pathname !== s.resolvedLocation.pathname) });
   useEffect(() => setOpen(false), [path]);
@@ -92,7 +94,8 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <main className="min-w-0 flex-1 p-4 sm:p-6">
           {navigating && <div className="nav-progress fixed inset-x-0 top-0 z-[60] h-0.5 bg-link" />}
-          <div key={path} className="page-enter mx-auto max-w-6xl space-y-4">{navigating ? <div role="status" aria-label="Loading page" className="flex flex-col items-center justify-center gap-3 py-24 text-on-ocean/80"><div className="h-10 w-10 animate-spin rounded-full border-4 border-glass-border border-t-link" /><span className="text-sm">Loading…</span></div> : loading ? <div role="status" className="py-16 text-center">Loading your account…</div> : error ? <div role="alert" className="py-16 text-center"><p className="mb-4">Unable to load your account.</p><Button onClick={retry}>Try again</Button></div> : user && profile && !profile.registration_complete ? <div className="py-12"><h1 className="mb-4 text-2xl font-bold">Complete your registration</h1><Button asChild><Link to="/complete-registration">Complete registration</Link></Button></div> : children}</div>
+          <div key={path} ref={contentRef} className="page-enter page-scroll-layout mx-auto max-w-6xl space-y-4">{navigating ? <div role="status" aria-label="Loading page" className="flex flex-col items-center justify-center gap-3 py-24 text-on-ocean/80"><div className="h-10 w-10 animate-spin rounded-full border-4 border-glass-border border-t-link" /><span className="text-sm">Loading…</span></div> : loading ? <div role="status" className="py-16 text-center">Loading your account…</div> : error ? <div role="alert" className="py-16 text-center"><p className="mb-4">Unable to load your account.</p><Button onClick={retry}>Try again</Button></div> : user && profile && !profile.registration_complete ? <div className="py-12"><h1 className="mb-4 text-2xl font-bold">Complete your registration</h1><Button asChild><Link to="/complete-registration">Complete registration</Link></Button></div> : children}</div>
+          {!navigating && !loading && !error && <PageContents root={contentRef} pageKey={path} />}
         </main>
       </div>
     </div>
@@ -100,12 +103,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 }
 
 export function WhiteCard({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-glass-border bg-glass p-4 text-on-ocean shadow-sm backdrop-blur-sm transition-colors hover:border-on-ocean/30 ${className}`}>{children}</div>;
+  return <div data-scroll-card className={`scroll-content-card rounded-2xl border border-glass-border bg-glass p-4 text-on-ocean shadow-sm backdrop-blur-sm transition-colors hover:border-on-ocean/30 ${className}`}>{children}</div>;
 }
 
 export function PageTitle({ title, subtitle, icon: Icon }: { title: string; subtitle?: string; icon?: ComponentType<{ className?: string }> }) {
   return (
-    <div className="rounded-3xl border border-glass-border bg-glass px-5 py-7 text-center backdrop-blur-sm sm:py-9">
+    <div className="page-heading rounded-3xl border border-glass-border bg-glass px-5 py-7 text-center backdrop-blur-sm sm:py-9">
       {Icon && <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-chart-4/40 bg-chart-4/20 shadow-lg"><Icon className="h-7 w-7 text-chart-4" /></div>}
       <h1 className="text-2xl font-bold sm:text-3xl">{title}</h1>
       {subtitle && <p className="mx-auto mt-2 max-w-xl text-sm text-on-ocean/75">{subtitle}</p>}

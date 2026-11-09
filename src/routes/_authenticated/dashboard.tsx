@@ -39,8 +39,7 @@ function Dashboard() {
   ];
   return (
     <AppShell>
-      <section className="relative overflow-hidden rounded-2xl border border-glass-border bg-glass p-4 backdrop-blur-md sm:p-6">
-        <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-avatar-gradient opacity-30 blur-2xl" />
+      <section className="page-heading overflow-hidden rounded-2xl border border-glass-border bg-glass p-4 backdrop-blur-md sm:p-6">
         <div className="relative flex items-center gap-3 sm:gap-4">
           <div className="bg-avatar-gradient flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-2 border-glass-border text-xl font-bold shadow-lg sm:h-16 sm:w-16 sm:text-2xl">{profile?.full_name[0]}</div>
           <div className="min-w-0 flex-1">

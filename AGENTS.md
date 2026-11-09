@@ -38,3 +38,5 @@ use the editor.
 
 - The public root renders authentication; management pages live under the managed authenticated layout at named URLs to prevent signed-out content flashes.
 - Profile updates must replace the caller-keyed profile query before navigation so completion cannot leave stale gating state.
+
+- AppShell owns scroll layering and page contents discovery through shared card markers; only short single-column siblings stack so tall content remains accessible.
