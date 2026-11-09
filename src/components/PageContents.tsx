@@ -11,6 +11,34 @@ export function PageContents({ root, pageKey }: { root: RefObject<HTMLDivElement
     const element = root.current;
     if (!element) return;
     let frame = 0;
+    const updateBlur = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const heading = element.querySelector<HTMLElement>(".page-heading");
+        if (!heading) return;
+        const pinnedTop = Number.parseFloat(getComputedStyle(heading).top) || 80;
+        const distance = Math.max(0, pinnedTop - element.getBoundingClientRect().top);
+        const progress = Math.min(1, distance / Math.max(120, heading.offsetHeight * 0.8));
+        heading.style.setProperty("--heading-scroll-blur", `${(progress * 8).toFixed(2)}px`);
+        heading.style.setProperty("--heading-scroll-opacity", `${(1 - progress * 0.55).toFixed(3)}`);
+      });
+    };
+    const observer = new MutationObserver(updateBlur);
+    observer.observe(element, { childList: true, subtree: true });
+    window.addEventListener("scroll", updateBlur, { passive: true });
+    window.addEventListener("resize", updateBlur);
+    updateBlur();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", updateBlur);
+      window.removeEventListener("resize", updateBlur);
+    };
+  }, [root, pageKey]);
+  useEffect(() => {
+    const element = root.current;
+    if (!element) return;
+    let frame = 0;
     const update = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {

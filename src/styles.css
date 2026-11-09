@@ -238,7 +238,13 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-indigo);
 :root { --stack-surface: oklch(0.44 0.077 239); --shadow-stack: 0 -6px 20px oklch(0.25 0.06 239 / 0.2); }
 .dark { --stack-surface: oklch(0.29 0.06 239); --shadow-stack: 0 -6px 20px oklch(0.15 0.04 239 / 0.3); }
 .page-scroll-layout { isolation: isolate; padding-bottom: 4rem; }
-.page-heading { position: sticky; top: 5rem; z-index: 0; }
+.page-heading {
+  position: sticky;
+  top: 5rem;
+  z-index: 0;
+  filter: blur(var(--heading-scroll-blur, 0px));
+  opacity: var(--heading-scroll-opacity, 1);
+}
 .page-scroll-layout > :not(.page-heading) { position: relative; z-index: 1; }
 .scroll-content-card { background: var(--stack-surface); }
 .scroll-content-card[data-stack] { position: sticky; top: 5rem; background: var(--stack-surface); box-shadow: var(--shadow-stack); }
