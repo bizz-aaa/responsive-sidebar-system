@@ -12,7 +12,7 @@ export const signupSchema = z.object({
 export const signinSchema = signupSchema.pick({ phone: true, password: true });
 export function signinErrorMessage(error: { code?: string | undefined }, signup = false) {
   if (error.code === "phone_provider_disabled") {
-    return "Phone sign-in is currently unavailable. The system owner must enable Phone in Lovable Cloud auth settings.";
+    return "Phone sign-in is currently unavailable. The system owner must enable the phone provider in Supabase Auth settings.";
   }
   if (error.code === "over_request_rate_limit" || error.code === "over_email_send_rate_limit") {
     return "Too many attempts. Please wait and try again.";

@@ -82,7 +82,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "TUCASA Nyerere Campus Management System" },
       { name: "description", content: "TUCASA Nyerere Campus (UDSM) management system." },
-      { name: "author", content: "Lovable" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
