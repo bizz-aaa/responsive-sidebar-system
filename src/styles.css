@@ -240,6 +240,7 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-indigo);
 .page-scroll-layout { isolation: isolate; padding-bottom: 4rem; }
 .page-heading { position: sticky; top: 5rem; z-index: 0; }
 .page-scroll-layout > :not(.page-heading) { position: relative; z-index: 1; }
+.scroll-content-card { background: var(--stack-surface); }
 .scroll-content-card[data-stack] { position: sticky; top: 5rem; background: var(--stack-surface); box-shadow: var(--shadow-stack); }
 .page-scroll-layout h2, .page-scroll-layout h3 { scroll-margin-top: 6.5rem; }
 @media (prefers-reduced-motion: reduce) { .scroll-content-card[data-stack] { position: relative; top: auto; } }
