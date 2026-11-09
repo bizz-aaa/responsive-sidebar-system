@@ -23,8 +23,9 @@ export function signinErrorMessage(error: { code?: string | undefined }, signup 
 }
 export const completionSchema = z.object({
   course: z.string().trim().min(1, "Enter your course.").max(150),
-  course_duration: z.coerce.number().int().min(1).max(10),
-  year_of_study: z.coerce.number().int().min(1).max(10),
+  course_duration: z.coerce.number().int().min(1).max(5),
+  year_of_study: z.coerce.number().int().min(1).max(5),
+  residence: z.string().trim().min(1, "Enter your residence.").max(150),
   baptized: z.boolean(),
   church: z.string().trim().max(150),
   gender: z.enum(["female", "male"]),

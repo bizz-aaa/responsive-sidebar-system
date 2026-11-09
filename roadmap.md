@@ -11,3 +11,4 @@
 - [x] Finance: admin-set contributions, member payment claims, admin confirmation, records export.
 - [x] Members: own details; admin export.
 - [x] Leadership: Adcom/Excom customizable positions; admin positions; confirmed deletes.
+- [ ] Restyle complete-registration page to dashboard glass style; add residence; cap course duration and year of study at 5.

@@ -303,6 +303,7 @@ export type Database = {
           id: string
           phone: string
           registration_complete: boolean
+          residence: string | null
           year_of_study: number | null
         }
         Insert: {
@@ -316,6 +317,7 @@ export type Database = {
           id: string
           phone: string
           registration_complete?: boolean
+          residence?: string | null
           year_of_study?: number | null
         }
         Update: {
@@ -329,6 +331,7 @@ export type Database = {
           id?: string
           phone?: string
           registration_complete?: boolean
+          residence?: string | null
           year_of_study?: number | null
         }
         Relationships: []
