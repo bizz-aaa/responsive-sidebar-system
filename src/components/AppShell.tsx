@@ -24,7 +24,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   useEffect(() => { if (!loading && user && profile && !profile.registration_complete) void navigate({ to: "/complete-registration", replace: true }); }, [loading, user, profile, navigate]);
   const [open, setOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const navigating = useRouterState({ select: (s) => s.status === "pending" });
+  const navigating = useRouterState({ select: (s) => s.status === "pending" || s.isLoading || (!!s.resolvedLocation && s.location.pathname !== s.resolvedLocation.pathname) });
   useEffect(() => setOpen(false), [path]);
 
   const links = (
@@ -92,7 +92,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <main className="min-w-0 flex-1 p-4 sm:p-6">
           {navigating && <div className="nav-progress fixed inset-x-0 top-0 z-[60] h-0.5 bg-link" />}
-          <div key={path} className="mx-auto max-w-6xl space-y-4">{loading ? <div role="status" className="py-16 text-center">Loading your account…</div> : error ? <div role="alert" className="py-16 text-center"><p className="mb-4">Unable to load your account.</p><Button onClick={retry}>Try again</Button></div> : user && profile && !profile.registration_complete ? <div className="py-12"><h1 className="mb-4 text-2xl font-bold">Complete your registration</h1><Button asChild><Link to="/complete-registration">Complete registration</Link></Button></div> : children}</div>
+          <div key={path} className="page-enter mx-auto max-w-6xl space-y-4">{navigating ? <div role="status" aria-label="Loading page" className="flex flex-col items-center justify-center gap-3 py-24 text-on-ocean/80"><div className="h-10 w-10 animate-spin rounded-full border-4 border-glass-border border-t-link" /><span className="text-sm">Loading…</span></div> : loading ? <div role="status" className="py-16 text-center">Loading your account…</div> : error ? <div role="alert" className="py-16 text-center"><p className="mb-4">Unable to load your account.</p><Button onClick={retry}>Try again</Button></div> : user && profile && !profile.registration_complete ? <div className="py-12"><h1 className="mb-4 text-2xl font-bold">Complete your registration</h1><Button asChild><Link to="/complete-registration">Complete registration</Link></Button></div> : children}</div>
         </main>
       </div>
     </div>
