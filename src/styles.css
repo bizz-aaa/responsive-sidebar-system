@@ -211,8 +211,17 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-indigo);
   to { opacity: 1; transform: none; }
 }
 @utility page-enter {
-  animation: page-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: page-enter 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 @media (prefers-reduced-motion: reduce) {
   .page-enter { animation: none; }
+}
+
+@keyframes nav-progress {
+  from { transform: scaleX(0.05); }
+  to { transform: scaleX(0.9); }
+}
+@utility nav-progress {
+  transform-origin: left;
+  animation: nav-progress 1.2s ease-out forwards;
 }
