@@ -19,4 +19,10 @@ describe("Registration rules", () => {
   it("requires course details", () => { expect(completionSchema.safeParse({ ...details, course: "" }).success).toBe(false); });
   it("requires male or female gender", () => { expect(completionSchema.safeParse({ ...details, gender: "" }).success).toBe(false); expect(completionSchema.safeParse({ ...details, gender: "female" }).success).toBe(true); });
   it("keeps year of study within course duration", () => { expect(completionSchema.safeParse({ ...details, year_of_study: 4 }).success).toBe(false); });
+  it("requires residence", () => { expect(completionSchema.safeParse({ ...details, residence: "" }).success).toBe(false); });
+  it("caps course duration and year of study at 5", () => {
+    expect(completionSchema.safeParse({ ...details, course_duration: 5, year_of_study: 5 }).success).toBe(true);
+    expect(completionSchema.safeParse({ ...details, course_duration: 6 }).success).toBe(false);
+    expect(completionSchema.safeParse({ ...details, year_of_study: 6 }).success).toBe(false);
+  });
 });
