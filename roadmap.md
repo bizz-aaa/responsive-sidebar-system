@@ -1,4 +1,5 @@
 # Tasks
+- [ ] Keep page headings in place during scroll, stack suitable content cards, and add a contents drawer for long pages.
 - [x] Match the uploaded blue glass design across account and management pages.
 - [x] Simplify authentication pages to logos and forms; make sign-in the entry page.
 - [x] Convert every visible interface and validation message to English.
