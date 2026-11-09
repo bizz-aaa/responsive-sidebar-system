@@ -207,8 +207,8 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-indigo);
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
 
 @keyframes page-enter {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 @utility page-enter {
   animation: page-enter 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -233,3 +233,13 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--brand-indigo);
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
+
+/* Layer the content above pinned headings. Short single-column cards stack. */
+:root { --stack-surface: oklch(0.44 0.077 239); --shadow-stack: 0 -6px 20px oklch(0.25 0.06 239 / 0.2); }
+.dark { --stack-surface: oklch(0.29 0.06 239); --shadow-stack: 0 -6px 20px oklch(0.15 0.04 239 / 0.3); }
+.page-scroll-layout { isolation: isolate; padding-bottom: 4rem; }
+.page-heading { position: sticky; top: 5rem; z-index: 0; }
+.page-scroll-layout > :not(.page-heading) { position: relative; z-index: 1; }
+.scroll-content-card[data-stack] { position: sticky; top: 5rem; background: var(--stack-surface); box-shadow: var(--shadow-stack); }
+.page-scroll-layout h2, .page-scroll-layout h3 { scroll-margin-top: 6.5rem; }
+@media (prefers-reduced-motion: reduce) { .scroll-content-card[data-stack] { position: relative; top: auto; } }
