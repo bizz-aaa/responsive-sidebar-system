@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { signupSchema, signinSchema, completionSchema, phoneSchema, signinErrorMessage, accountDestination } from "@/lib/registration";
 const account = { full_name: "Evance Manyanga", phone: "0712345678", password: "StrongPass42!" };
-const details = { course: "Computer Science", course_duration: 3, year_of_study: 2, baptized: false, church: "", gender: "male" };
+const details = { course: "Computer Science", course_duration: 3, year_of_study: 2, residence: "Hostel Block A", baptized: false, church: "", gender: "male" };
 describe("Registration rules", () => {
   it("sends incomplete members to registration", () => { expect(accountDestination(false)).toBe("/complete-registration"); });
   it("sends completed members to visible dashboard content", () => { expect(accountDestination(true)).toBe("/dashboard"); });
